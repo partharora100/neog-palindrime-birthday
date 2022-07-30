@@ -6,7 +6,8 @@ const message = document.querySelector(".message");
 
 // yyyy mm dd
 message.textContent = "";
-const dateToObject = function (date) { // pass in here the date 
+const dateToObject = function (date) {
+  // pass in here the date
   const dateElArray = date.split("-");
   const dateObject = {
     day: dateElArray[2],
@@ -17,7 +18,8 @@ const dateToObject = function (date) { // pass in here the date
   return dateObject;
 };
 
-const getDateFormats = function (dateObject) { //pass in the date Object here
+const getDateFormats = function (dateObject) {
+  //pass in the date Object here
   // pass in the result of the object function ==> object pass
   // const date = dateToObject(dateEl);
   var ddmmyyyy = dateObject.day + dateObject.month + dateObject.year;
@@ -66,7 +68,8 @@ const leapYear = function (year) {
   return false;
 };
 
-const dateCorrectedObject = function (date) { // pass in the object here
+const dateCorrectedObject = function (date) {
+  // pass in the object here
   let day = date.day;
   let month = date.month;
   let year = date.year;
@@ -93,7 +96,8 @@ const dateCorrectedObject = function (date) { // pass in the object here
   return dateObject;
 };
 
-const getNextDate = function (date) { // pass in the object
+const getNextDate = function (date) {
+  // pass in the object
 
   let day = Number(date.day) + 1;
   let month = Number(date.month);
@@ -130,12 +134,10 @@ const getNextDate = function (date) { // pass in the object
     day: day,
     month: month,
     year: year,
-  }
+  };
   const nextDateObject = dateCorrectedObject(nextDate);
   return nextDateObject;
 };
-
-// button.addEventListener("click", getNextDate);
 
 const getNextPalindrime = function (date) {
   let nextDate = getNextDate(date);
@@ -153,6 +155,63 @@ const getNextPalindrime = function (date) {
       }
     }
     nextDate = getNextDate(nextDate);
+  }
+};
+
+const getPrevDate = function (date) {
+  // pass in the object
+  // const date = dateToObject(dateEl.value);
+  let day = Number(date.day) - 1;
+  let month = Number(date.month);
+  let year = Number(date.year);
+  const dayInMonths = [31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30];
+
+  if (month == 3) {
+    if (day < 1) {
+      if (leapYear(year)) {
+        day = 29;
+        month = 2;
+      } else {
+        day = 28;
+        month = 2;
+      }
+    }
+  } else if (month == 1) {
+    if (day < 1) {
+      month = 12;
+      day = 31;
+      year--;
+    }
+  } else if (day < 1) {
+    month--;
+    day = dayInMonths[month - 2];
+  }
+
+  const prevDate = {
+    day: day,
+    month: month,
+    year: year,
+  };
+  const prevDateObject = dateCorrectedObject(prevDate);
+  return prevDateObject;
+};
+
+const getPrevPalindrime = function (date) {
+  let prevDate = getPrevDate(date);
+  // here the next date is in the required object format
+  let ctr = 0;
+
+  while (1) {
+    ctr++;
+    let dateFormatprevDate = getDateFormats(prevDate);
+    let resultListprevDate = checkAllFormatsForPalindrime(dateFormatprevDate);
+
+    for (let result of resultListprevDate) {
+      if (result) {
+        return [ctr, prevDate];
+      }
+    }
+    prevDate = getPrevDate(prevDate);
   }
 };
 
@@ -176,12 +235,18 @@ button.addEventListener("click", function () {
       console.log(`Your Birthday is a Palindrime!! YAYY`);
       message.textContent = "Your Birthday is a Palindrime!! YAYY";
     } else {
-      message.textContent = "Your Birthday is not a Palindrime";
+      // message.textContent = "Your Birthday is not a Palindrime";
       // calculating the next palindrim here
-      const [ctr, nextPalindrime] = getNextPalindrime(dateObject);
-      console.log(ctr);
-      console.log(nextPalindrime);
-      message.textContent = `Sorry!! You missed a Palindrime by ${ctr} days , next palindrime is on ${nextPalindrime}`
+      const [ctr1, nextPalindrime] = getNextPalindrime(dateObject);
+      console.log(ctr1);
+      const [ctr2, prevPalindrime] = getPrevPalindrime(dateObject);
+      console.log(ctr2);
+
+      if (ctr1 < ctr2) {
+        message.textContent = `Sorry!! You missed a Palindrime by ${ctr1} days , next palindrime is on ${nextPalindrime}`;
+      } else if (ctr1 > ctr2) {
+        message.textContent = `Sorry!! You missed a Palindrime by ${ctr2} days , previous palindrime was on ${prevPalindrime}`;
+      }
     }
   } else {
     message.textContent = "Please select valid date of birth";
