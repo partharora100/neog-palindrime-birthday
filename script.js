@@ -17,7 +17,7 @@ const dateToObject = function (date) {
   console.log(dateObject);
   return dateObject;
 };
-
+const palindrome = function () {};
 const getDateFormats = function (dateObject) {
   //pass in the date Object here
   // pass in the result of the object function ==> object pass
@@ -40,22 +40,22 @@ const getDateFormats = function (dateObject) {
   return dateFormatsArray;
 };
 
-const isStringPalindrime = function (str) {
+const isStringPalindrome = function (str) {
   // pass in the string here
   const reverse = str.split("").reverse().join("");
   return reverse === str;
 };
 
-const checkAllFormatsForPalindrime = function (array) {
+const checkAllFormatsForPalindrome = function (array) {
   // this will return a array of the results
   // const dateFormatList = getDateFormats();
-  let palindrimeList = [];
+  let palindromeList = [];
 
   for (let format of array) {
-    let result = isStringPalindrime(format);
-    palindrimeList.push(result);
+    let result = isStringPalindrome(format);
+    palindromeList.push(result);
   }
-  return palindrimeList;
+  return palindromeList;
 };
 
 const leapYear = function (year) {
@@ -139,7 +139,7 @@ const getNextDate = function (date) {
   return nextDateObject;
 };
 
-const getNextPalindrime = function (date) {
+const getNextPalindrome = function (date) {
   let nextDate = getNextDate(date);
   // here the next date is in the required object format
   let ctr = 0;
@@ -147,7 +147,7 @@ const getNextPalindrime = function (date) {
   while (1) {
     ctr++;
     let dateFormatNextDate = getDateFormats(nextDate);
-    let resultListNextDate = checkAllFormatsForPalindrime(dateFormatNextDate);
+    let resultListNextDate = checkAllFormatsForPalindrome(dateFormatNextDate);
 
     for (let result of resultListNextDate) {
       if (result) {
@@ -196,7 +196,7 @@ const getPrevDate = function (date) {
   return prevDateObject;
 };
 
-const getPrevPalindrime = function (date) {
+const getPrevPalindrome = function (date) {
   let prevDate = getPrevDate(date);
   // here the next date is in the required object format
   let ctr = 0;
@@ -204,7 +204,7 @@ const getPrevPalindrime = function (date) {
   while (1) {
     ctr++;
     let dateFormatprevDate = getDateFormats(prevDate);
-    let resultListprevDate = checkAllFormatsForPalindrime(dateFormatprevDate);
+    let resultListprevDate = checkAllFormatsForPalindrome(dateFormatprevDate);
 
     for (let result of resultListprevDate) {
       if (result) {
@@ -224,37 +224,37 @@ button.addEventListener("click", function () {
     const bdayDate = dateEl.value;
     const dateObject = dateToObject(bdayDate);
     const dateFormatArray = getDateFormats(dateObject);
-    const resultList = checkAllFormatsForPalindrime(dateFormatArray);
+    const resultList = checkAllFormatsForPalindrome(dateFormatArray);
 
-    let isPalindrime = false;
+    let isPalindrome = false;
 
     for (let result of resultList) {
       if (result) {
-        isPalindrime = true;
+        isPalindrome = true;
         break;
       }
     }
 
-    if (isPalindrime) {
-      console.log(`Your Birthday is a Palindrime!! YAYY`);
-      message.textContent = "Your Birthday is a Palindrime!! YAYY";
+    if (isPalindrome) {
+      console.log(`Your Birthday is a Palindrome!! YAYY`);
+      message.textContent = "Your Birthday is a Palindrome!! YAYY";
     } else {
-      // message.textContent = "Your Birthday is not a Palindrime";
+      // message.textContent = "Your Birthday is not a Palindrome";
       // calculating the next palindrim here
-      const [ctr1, nextPalindrime] = getNextPalindrime(dateObject);
+      const [ctr1, nextPalindrome] = getNextPalindrome(dateObject);
       console.log(ctr1);
-      const [ctr2, prevPalindrime] = getPrevPalindrime(dateObject);
+      const [ctr2, prevPalindrome] = getPrevPalindrome(dateObject);
       console.log(ctr2);
 
-      const nextPalindromeDate = objectToDate(nextPalindrime);
-      const prevPalindromeDate = objectToDate(prevPalindrime);
+      const nextPalindromeDate = objectToDate(nextPalindrome);
+      const prevPalindromeDate = objectToDate(prevPalindrome);
 
-      console.log(nextPalindrime);
-      console.log(prevPalindrime);
+      console.log(nextPalindrome);
+      console.log(prevPalindrome);
       if (ctr1 < ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrime by ${ctr1} days , next palindrime is on ${nextPalindromeDate}`;
+        message.textContent = `Sorry!! You missed a Palindrome by ${ctr1} days , next palindrome is on ${nextPalindromeDate}`;
       } else if (ctr1 > ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrime by ${ctr2} days , previous palindrime was on ${prevPalindromeDate}`;
+        message.textContent = `Sorry!! You missed a Palindrome by ${ctr2} days , previous palindrome was on ${prevPalindromeDate}`;
       }
     }
   } else {
