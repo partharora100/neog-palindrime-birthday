@@ -215,6 +215,10 @@ const getPrevPalindrime = function (date) {
   }
 };
 
+const objectToDate = function (obj) {
+  return `${obj.day}-${obj.month}-${obj.year}`;
+};
+
 button.addEventListener("click", function () {
   if (dateEl.value) {
     const bdayDate = dateEl.value;
@@ -242,10 +246,15 @@ button.addEventListener("click", function () {
       const [ctr2, prevPalindrime] = getPrevPalindrime(dateObject);
       console.log(ctr2);
 
+      const nextPalindromeDate = objectToDate(nextPalindrime);
+      const prevPalindromeDate = objectToDate(prevPalindrime);
+
+      console.log(nextPalindrime);
+      console.log(prevPalindrime);
       if (ctr1 < ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrime by ${ctr1} days , next palindrime is on ${nextPalindrime}`;
+        message.textContent = `Sorry!! You missed a Palindrime by ${ctr1} days , next palindrime is on ${nextPalindromeDate}`;
       } else if (ctr1 > ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrime by ${ctr2} days , previous palindrime was on ${prevPalindrime}`;
+        message.textContent = `Sorry!! You missed a Palindrime by ${ctr2} days , previous palindrime was on ${prevPalindromeDate}`;
       }
     }
   } else {
