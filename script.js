@@ -3,7 +3,8 @@
 const dateEl = document.querySelector(".input-date");
 const button = document.querySelector(".button");
 const message = document.querySelector(".message");
-
+const giffy = document.querySelector(".gif");
+giffy.style.display = "none";
 // yyyy mm dd
 message.textContent = "";
 const dateToObject = function (date) {
@@ -220,44 +221,92 @@ const objectToDate = function (obj) {
 };
 
 button.addEventListener("click", function () {
-  if (dateEl.value) {
-    const bdayDate = dateEl.value;
-    const dateObject = dateToObject(bdayDate);
-    const dateFormatArray = getDateFormats(dateObject);
-    const resultList = checkAllFormatsForPalindrome(dateFormatArray);
-
-    let isPalindrome = false;
-
-    for (let result of resultList) {
-      if (result) {
-        isPalindrome = true;
-        break;
-      }
-    }
-
-    if (isPalindrome) {
-      console.log(`Your Birthday is a Palindrome!! YAYY`);
-      message.textContent = "Your Birthday is a Palindrome!! YAYY";
-    } else {
-      // message.textContent = "Your Birthday is not a Palindrome";
-      // calculating the next palindrim here
-      const [ctr1, nextPalindrome] = getNextPalindrome(dateObject);
-      console.log(ctr1);
-      const [ctr2, prevPalindrome] = getPrevPalindrome(dateObject);
-      console.log(ctr2);
-
-      const nextPalindromeDate = objectToDate(nextPalindrome);
-      const prevPalindromeDate = objectToDate(prevPalindrome);
-
-      console.log(nextPalindrome);
-      console.log(prevPalindrome);
-      if (ctr1 < ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrome by ${ctr1} days , next palindrome is on ${nextPalindromeDate}`;
-      } else if (ctr1 > ctr2) {
-        message.textContent = `Sorry!! You missed a Palindrome by ${ctr2} days , previous palindrome was on ${prevPalindromeDate}`;
-      }
-    }
-  } else {
+  message.textContent = "";
+  if (!dateEl.value) {
     message.textContent = "Please select valid date of birth";
+    return;
   }
+  giffy.style.display = "block";
+  setTimeout(() => {
+    if (dateEl.value) {
+      giffy.style.display = "none";
+      const bdayDate = dateEl.value;
+      const dateObject = dateToObject(bdayDate);
+      const dateFormatArray = getDateFormats(dateObject);
+      const resultList = checkAllFormatsForPalindrome(dateFormatArray);
+
+      let isPalindrome = false;
+
+      for (let result of resultList) {
+        if (result) {
+          isPalindrome = true;
+          break;
+        }
+      }
+
+      if (isPalindrome) {
+        console.log(`Your Birthday is a Palindrome!! YAYY`);
+        message.textContent = "Your Birthday is a Palindrome!! YAYY";
+      } else {
+        // message.textContent = "Your Birthday is not a Palindrome";
+        // calculating the next palindrim here
+        const [ctr1, nextPalindrome] = getNextPalindrome(dateObject);
+        console.log(ctr1);
+        const [ctr2, prevPalindrome] = getPrevPalindrome(dateObject);
+        console.log(ctr2);
+
+        const nextPalindromeDate = objectToDate(nextPalindrome);
+        const prevPalindromeDate = objectToDate(prevPalindrome);
+
+        console.log(nextPalindrome);
+        console.log(prevPalindrome);
+        if (ctr1 < ctr2) {
+          message.textContent = `Sorry!! You missed a Palindrome by ${ctr1} days , next palindrome is on ${nextPalindromeDate}`;
+        } else if (ctr1 > ctr2) {
+          message.textContent = `Sorry!! You missed a Palindrome by ${ctr2} days , previous palindrome was on ${prevPalindromeDate}`;
+        }
+      }
+    }
+  }, 2000);
+
+  // if (dateEl.value) {
+  //   const bdayDate = dateEl.value;
+  //   const dateObject = dateToObject(bdayDate);
+  //   const dateFormatArray = getDateFormats(dateObject);
+  //   const resultList = checkAllFormatsForPalindrome(dateFormatArray);
+
+  //   let isPalindrome = false;
+
+  //   for (let result of resultList) {
+  //     if (result) {
+  //       isPalindrome = true;
+  //       break;
+  //     }
+  //   }
+
+  //   if (isPalindrome) {
+  //     console.log(`Your Birthday is a Palindrome!! YAYY`);
+  //     message.textContent = "Your Birthday is a Palindrome!! YAYY";
+  //   } else {
+  //     // message.textContent = "Your Birthday is not a Palindrome";
+  //     // calculating the next palindrim here
+  //     const [ctr1, nextPalindrome] = getNextPalindrome(dateObject);
+  //     console.log(ctr1);
+  //     const [ctr2, prevPalindrome] = getPrevPalindrome(dateObject);
+  //     console.log(ctr2);
+
+  //     const nextPalindromeDate = objectToDate(nextPalindrome);
+  //     const prevPalindromeDate = objectToDate(prevPalindrome);
+
+  //     console.log(nextPalindrome);
+  //     console.log(prevPalindrome);
+  //     if (ctr1 < ctr2) {
+  //       message.textContent = `Sorry!! You missed a Palindrome by ${ctr1} days , next palindrome is on ${nextPalindromeDate}`;
+  //     } else if (ctr1 > ctr2) {
+  //       message.textContent = `Sorry!! You missed a Palindrome by ${ctr2} days , previous palindrome was on ${prevPalindromeDate}`;
+  //     }
+  //   }
+  // } else {
+  //   message.textContent = "Please select valid date of birth";
+  // }
 });

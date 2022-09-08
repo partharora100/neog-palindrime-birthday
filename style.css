@@ -14,7 +14,7 @@ h1 {
   text-align: center;
   font-size: 36px;
   background-color: lightcoral;
-  padding: 16px 0 ;
+  padding: 16px 0;
 }
 /* input element */
 
@@ -55,3 +55,8 @@ h1 {
   font-weight: bolder;
 }
 
+.gif {
+  max-width: 200px;
+  margin: 20px auto;
+  display: block;
+}
