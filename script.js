@@ -212,6 +212,7 @@ const getPrevPalindrome = function (date) {
         return [ctr, prevDate];
       }
     }
+    
     prevDate = getPrevDate(prevDate);
   }
 };
@@ -222,14 +223,15 @@ const objectToDate = function (obj) {
 
 button.addEventListener("click", function () {
   message.textContent = "";
+  // giffy.style.display = "none";
   if (!dateEl.value) {
     message.textContent = "Please select valid date of birth";
     return;
   }
   giffy.style.display = "block";
   setTimeout(() => {
+    giffy.style.display = "none";
     if (dateEl.value) {
-      giffy.style.display = "none";
       const bdayDate = dateEl.value;
       const dateObject = dateToObject(bdayDate);
       const dateFormatArray = getDateFormats(dateObject);
